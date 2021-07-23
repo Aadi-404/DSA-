@@ -37,3 +37,37 @@ public:
         
     }
 };
+
+// 2nd method 
+        int n = s.length();
+        string ans = "";
+        unordered_map <char, int> m;
+        priority_queue <pair<int,char>> pq;
+        for(int i = 0;i<n;i++){
+            m[s[i]]++;
+        }
+        unordered_map<char,int> ::iterator it;
+        for(it = m.begin();it!= m.end();it++){
+            pair<int,char> p = {it->second,it->first};
+            pq.push(p);
+        }
+        pair<int,char> t,temp;
+        t= pq.top();
+        pq.pop();
+        while(!pq.empty()){
+            ans = ans + t.second;
+            temp = pq.top();
+            pq.pop();
+            if(t.first >1){
+                t.first --;
+                pq.push(t);
+            }
+            t = temp;
+        }
+        ans = ans + t.second;
+        if(ans.length()< s.length()){
+            ans = "";
+        }
+        return ans;
+    }
+};
